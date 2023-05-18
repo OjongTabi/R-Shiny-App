@@ -389,11 +389,12 @@ app2_server <- function(id) {
 }     
 
 # Define app3_server module
-# Define app3_server module
 app3_server <- function(id) {
+  # This function takes an id parameter and sets up a server for a Shiny module.
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
+    # Reactive function that loads the input data
     load_data <- reactive({
       req(input$file)
       data <- read.csv(input$file$datapath)
@@ -401,6 +402,7 @@ app3_server <- function(id) {
       return(data)
     })
     
+    # Function to create a volcano plot
     volcano_plot <- function(dataf, x_name, y_name, slider, color1, color2) {
       ggplot(dataf, aes_string(x = sym(x_name), y = paste("neg_log10_", y_name, sep = ""))) +
         geom_point(data = dataf, aes_string(color = paste("neg_log10_", y_name, sep = "")), size = 0.5, na.rm = TRUE) +
@@ -409,6 +411,7 @@ app3_server <- function(id) {
         theme_minimal()
     }
     
+    # Function to filter and format the data for the table
     draw_table <- function(dataf, slider) {
       filtered_dataf <- dataf[which(dataf$padj < 10^slider), ]
       filtered_dataf$pvalue <- formatC(filtered_dataf$pvalue, digits = 3, format = "e")
@@ -416,6 +419,7 @@ app3_server <- function(id) {
       return(filtered_dataf)
     }
     
+    # Observe the plot button and render the plot and table when it is clicked
     observeEvent(input$plot_btn, {
       data <- load_data()
       if (!is.null(data)) {

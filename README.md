@@ -32,8 +32,5 @@ This repository contains an R Shiny application designed to perform a variety of
 
 This project is licensed under the MIT License 
 
-## Acknowledgments
-
-- OpenAI for the amazing GPT-3 and GPT-4 models. 
 
 Please feel free to raise any issues or to contribute to this project. If you need further assistance, contact the project maintainers.
